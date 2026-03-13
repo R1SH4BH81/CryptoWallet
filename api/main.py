@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 import pathlib
 
-load_dotenv()
+load_dotenv(override=True)
 
 # Set a local directory for bitcoinlib config/logs where we have write access
 current_dir = pathlib.Path(__file__).parent.absolute()
