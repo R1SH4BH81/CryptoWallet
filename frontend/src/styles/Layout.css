@@ -1,0 +1,16 @@
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: url(/static/animatedBg.gif);
+  background-size: cover;
+  background-attachment: fixed;
+  color: white;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* Navbar floats over content globally */
+}
