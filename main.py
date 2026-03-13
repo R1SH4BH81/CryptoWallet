@@ -57,7 +57,7 @@ def register():
     passphrase = Mnemonic().generate()
     wallet_name = generate_random_name()
     wallet = Wallet.create(wallet_name, keys=passphrase, network='bitcoin')
-    account_btc2 = wallet.new_account('Account BTC 2')
+    account_btc2 = wallet.new_account('Account BTC ')
     account_ltc1 = wallet.new_account('Account LTC', network='litecoin')
     private_master_key_wif_account1 = wallet.account(0).key().wif_private()
     private_master_key_wif_account2 = wallet.account(1).key().wif_private()
