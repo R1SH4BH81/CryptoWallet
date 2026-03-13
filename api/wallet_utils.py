@@ -45,3 +45,26 @@ def get_wallet_balance(wallet_name):
         return balance_btc
     except WalletError:
         return 0.0
+
+def get_wallet_transactions(wallet_name):
+    try:
+        wallet = BtcWallet(wallet_name)
+        transactions = wallet.transactions()
+        
+        tx_list = []
+        for tx in transactions:
+            # Determine if it's sent or received based on balance change
+            # This is a simplified logic
+            is_sent = tx.balance_change < 0
+            
+            tx_list.append({
+                "id": tx.txid,
+                "type": "sent" if is_sent else "receive",
+                "address": tx.outputs[0].address if is_sent else tx.inputs[0].address,
+                "amount": abs(tx.balance_change) / 100000000,
+                "date": tx.date.strftime("%d %B, %Y") if tx.date else "Unknown",
+                "coin": "BTC" # Default to BTC for now
+            })
+        return tx_list
+    except WalletError:
+        return []

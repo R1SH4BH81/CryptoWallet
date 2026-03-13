@@ -1,0 +1,252 @@
+.sr-container {
+  background: rgba(18, 18, 18, 0.8);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 32px; /* Increased padding */
+  width: 100%;
+  max-width: 500px; /* Increased max-width */
+  margin: 0 auto;
+  color: white;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: 'Poppins', sans-serif;
+}
+
+.sr-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.sr-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.sr-tabs {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px;
+  border-radius: 12px;
+  display: flex;
+}
+
+.sr-tab {
+  padding: 6px 16px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.sr-tab.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.sr-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sr-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: border-color 0.3s ease;
+}
+
+.sr-card:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.sr-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.sr-label {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+}
+
+/* Custom Coin Selector Dropdown */
+.sr-custom-dropdown {
+  position: relative;
+  min-width: 80px;
+}
+
+.sr-dropdown-selected {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.sr-dropdown-selected:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.sr-dropdown-selected svg {
+  transition: transform 0.3s ease;
+}
+
+.sr-dropdown-selected svg.rotated {
+  transform: rotate(180deg);
+}
+
+.sr-dropdown-list {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 100;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  min-width: 100%;
+}
+
+.sr-dropdown-item {
+  padding: 10px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.sr-dropdown-item.active {
+  background: #f06543; /* Accent color */
+  color: white;
+}
+
+/* Requested: bg and text both are white for inactive */
+.sr-dropdown-item.inactive {
+  background: white !important;
+  color: white !important;
+}
+
+.sr-dropdown-item.inactive:hover {
+  background: #f5f5f5 !important;
+  color: #f5f5f5 !important;
+}
+
+.sr-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sr-amount-input {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 32px;
+  font-weight: 600;
+  width: 100%;
+  outline: none;
+}
+
+.sr-amount-input::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.sr-balance {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.sr-divider {
+  display: flex;
+  justify-content: center;
+  margin: -16px 0;
+  z-index: 1;
+}
+
+.sr-arrow-down {
+  background: #121212;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.sr-address-input {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  width: 100%;
+  outline: none;
+  padding: 8px 0;
+}
+
+.sr-address-display {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 12px;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 14px;
+  word-break: break-all;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.sr-address-display:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.sr-copy-hint {
+  display: block;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.3);
+  margin-top: 4px;
+  text-align: right;
+}
+
+.sr-submit-btn {
+  margin-top: 12px;
+  background: linear-gradient(135deg, #6e45e2 0%, #88d3ce 100%);
+  border: none;
+  border-radius: 16px;
+  padding: 16px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.sr-submit-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.sr-submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Specific to the Receive mode */
+.sr-receive-address-card {
+  margin-top: 8px;
+}

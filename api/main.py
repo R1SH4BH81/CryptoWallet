@@ -132,14 +132,16 @@ def get_dashboard_data(current_user: models.User = Depends(get_current_user), db
     wallet_responses = []
     for wallet in wallets:
         balance_btc = wallet_utils.get_wallet_balance(wallet.name)
-        # Note: balance_ltc could be added similarly if wallet_utils supported it
+        transactions = wallet_utils.get_wallet_transactions(wallet.name)
+        
         wallet_responses.append(schemas.WalletResponse(
             id=wallet.id,
             name=wallet.name,
             address_btc=wallet.address_btc,
             address_ltc=wallet.address_ltc,
             balance_btc=balance_btc,
-            balance_ltc=0.0  # Placeholder for LTC balance
+            balance_ltc=0.0,
+            transactions=transactions
         ))
     
     user_response = schemas.UserResponse(

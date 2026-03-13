@@ -31,6 +31,7 @@ class WalletResponse(BaseModel):
     address_ltc: str
     balance_btc: float = 0.0
     balance_ltc: float = 0.0
+    transactions: List[dict] = [] # Added to hold real transaction data
 
     class Config:
         from_attributes = True
