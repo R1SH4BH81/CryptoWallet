@@ -25,12 +25,24 @@
       "destination": "/api/index.py"
     },
     {
-      "source": "/((?!api|static|favicon.ico).*)",
-      "destination": "/frontend/dist/index.html"
+      "source": "/assets/(.*)",
+      "destination": "/frontend/assets/$1"
     },
     {
-      "source": "/(.*)",
-      "destination": "/frontend/dist/$1"
+      "source": "/static/(.*)",
+      "destination": "/frontend/static/$1"
+    },
+    {
+      "source": "/favicon.svg",
+      "destination": "/frontend/favicon.svg"
+    },
+    {
+      "source": "/icons.svg",
+      "destination": "/frontend/icons.svg"
+    },
+    {
+      "source": "/((?!api).*)",
+      "destination": "/frontend/index.html"
     }
   ],
   "headers": [
