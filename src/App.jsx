@@ -7,6 +7,10 @@ import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
 import Landing from './pages/Landing'
 import Profile from './pages/Profile'
+import GlobalMarket from './pages/GlobalMarket'
+import Trending from './pages/Trending'
+import CoinDetails from './pages/CoinDetails'
+import Search from './pages/Search'
 import { useEffect } from 'react'
 import { ToastContainer } from './components/Toast.jsx'
 
@@ -47,6 +51,38 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Profile />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/market" 
+              element={
+                <ProtectedRoute>
+                  <GlobalMarket />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/trending" 
+              element={
+                <ProtectedRoute>
+                  <Trending />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/search" 
+              element={
+                <ProtectedRoute>
+                  <Search />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/coin/:id" 
+              element={
+                <ProtectedRoute>
+                  <CoinDetails />
                 </ProtectedRoute>
               } 
             />

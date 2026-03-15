@@ -42,9 +42,18 @@ const Navbar = () => {
       <div className="nav-container">
         <div className="nav-left">
           <Link to={isAuthenticated ? "/dashboard" : "/"} className="nav-logo">
-           
-            <h1>CoinCloud</h1>
+            <div className="logo-image-wrapper">
+              <img src="/static/favicon.png" alt="CoinCloud Logo" className="navbar-logo-img" />
+            </div>
           </Link>
+          {isAuthenticated && (
+            <div className="nav-links">
+              <Link to="/dashboard" className={`nav-link ${location.pathname === '/dashboard' ? 'active' : ''}`}>Dashboard</Link>
+              <Link to="/market" className={`nav-link ${location.pathname === '/market' ? 'active' : ''}`}>Market</Link>
+              <Link to="/trending" className={`nav-link ${location.pathname === '/trending' ? 'active' : ''}`}>Trending</Link>
+              <Link to="/search" className={`nav-link ${location.pathname === '/search' ? 'active' : ''}`}>Search</Link>
+            </div>
+          )}
         </div>
 
         {/* <div className="nav-center">

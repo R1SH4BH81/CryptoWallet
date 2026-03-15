@@ -1,5 +1,4 @@
-import React from 'react';
-import { ChevronDown } from 'lucide-react';
+
 
 const CoinSelector = ({ current, onChange, coins, isDropdownOpen, setIsDropdownOpen }) => (
   <div className="sr-custom-dropdown">
@@ -11,7 +10,7 @@ const CoinSelector = ({ current, onChange, coins, isDropdownOpen, setIsDropdownO
         <div className={`coin-icon ${current.toLowerCase()}`}>{current[0]}</div>
         <span>{current}</span>
       </div>
-      <ChevronDown size={14} className={isDropdownOpen ? 'rotated' : ''} />
+     
     </div>
     {isDropdownOpen && (
       <div className="sr-dropdown-list">
@@ -56,7 +55,13 @@ const SendTab = ({
             className="amount-input"
             placeholder="0.00"
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            onChange={(e) => {
+              const val = e.target.value;
+              if (val === '' || parseFloat(val) >= 0) {
+                setAmount(val);
+              }
+            }}
+            min="0"
           />
           <CoinSelector 
             current={selectedCoin} 

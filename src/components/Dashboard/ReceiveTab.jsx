@@ -1,5 +1,5 @@
 import React from 'react';
-import { Copy, ChevronDown } from 'lucide-react';
+import { Copy } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 
 const CoinSelector = ({ current, onChange, coins, isDropdownOpen, setIsDropdownOpen }) => (
@@ -12,7 +12,7 @@ const CoinSelector = ({ current, onChange, coins, isDropdownOpen, setIsDropdownO
         <div className={`coin-icon ${current.toLowerCase()}`}>{current[0]}</div>
         <span>{current}</span>
       </div>
-      <ChevronDown size={14} className={isDropdownOpen ? 'rotated' : ''} />
+     
     </div>
     {isDropdownOpen && (
       <div className="sr-dropdown-list">

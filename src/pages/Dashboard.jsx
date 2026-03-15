@@ -13,6 +13,7 @@ const TotalBalanceCard = lazy(() => import('../components/Dashboard/TotalBalance
 const AssetList = lazy(() => import('../components/Dashboard/AssetList'))
 const DeFiSection = lazy(() => import('../components/Dashboard/DeFiSection'))
 const RewardsCard = lazy(() => import('../components/Dashboard/RewardsCard'))
+const CoinOverlay = lazy(() => import('../components/Dashboard/CoinOverlay'))
 
 const Dashboard = () => {
   const { user, wallets, fetchUser } = useAuthStore()
@@ -22,8 +23,10 @@ const Dashboard = () => {
   const [selectedCoin, setSelectedCoin] = useState('BTC')
   const [amount, setAmount] = useState('')
   const [marketData, setMarketData] = useState([])
+  const [selectedCoinForOverlay, setSelectedCoinForOverlay] = useState(null)
+  const [showCoinOverlay, setShowCoinOverlay] = useState(false)
 
-  useLenis(!isLoading)
+  useLenis(!isLoading && !showCoinOverlay)
 
   useEffect(() => {
     const loadData = async () => {
@@ -59,6 +62,11 @@ const Dashboard = () => {
     addToast('Rewards Center', 'success', 'You have 150 points available for redemption!')
   }
 
+  const handleCoinClick = (coin) => {
+    setSelectedCoinForOverlay(coin)
+    setShowCoinOverlay(true)
+  }
+
   const defiOpportunities = [
     { name: 'Aave', desc: 'Borrow', logo: 'A', color: '#B6509E' },
     { name: 'Midas', desc: 'Earn more', logo: 'M', color: '#2563eb' },
@@ -76,7 +84,7 @@ const Dashboard = () => {
 
       <div className="dashboard-container" style={{ opacity: isLoading ? 0 : 1, transition: 'opacity 0.5s ease' }}>
         <header className="dashboard-header">
-          <h1>Explore DeFi Opportunities</h1>
+          <h1>Dashboard</h1>
         </header>
 
         <div className="dashboard-grid">
@@ -91,15 +99,15 @@ const Dashboard = () => {
             </Suspense>
 
             <Suspense fallback={loadingFallback}>
-              <AssetList marketData={marketData} />
+              <AssetList marketData={marketData} onCoinClick={handleCoinClick} />
             </Suspense>
 
-            <Suspense fallback={loadingFallback}>
+            {/* <Suspense fallback={loadingFallback}>
               <DeFiSection 
                 defiOpportunities={defiOpportunities} 
                 onDefiClick={handleDefiClick} 
               />
-            </Suspense>
+            </Suspense> */}
           </div>
 
           {/* Right Column */}
@@ -117,9 +125,9 @@ const Dashboard = () => {
               />
             </Suspense>
 
-            <Suspense fallback={loadingFallback}>
+            {/* <Suspense fallback={loadingFallback}>
               <RewardsCard onViewRewardsClick={handleViewRewards} />
-            </Suspense>
+            </Suspense> */}
           </div>
         </div>
       </div>
@@ -141,6 +149,19 @@ const Dashboard = () => {
                 balance={selectedCoin === 'BTC' ? btcBalance : ltcBalance}
                 copyToClipboard={copyToClipboard}
                 transactions={transactions}
+              />
+            </Suspense>
+          </div>
+        </div>
+      )}
+
+      {showCoinOverlay && selectedCoinForOverlay && (
+        <div className="modal-overlay" onClick={() => setShowCoinOverlay(false)}>
+          <div onClick={e => e.stopPropagation()}>
+            <Suspense fallback={<Loader />}>
+              <CoinOverlay 
+                coin={selectedCoinForOverlay} 
+                onClose={() => setShowCoinOverlay(false)} 
               />
             </Suspense>
           </div>
