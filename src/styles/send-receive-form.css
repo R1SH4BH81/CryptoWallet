@@ -288,9 +288,7 @@
   word-break: break-all;
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.06);
-  color: #e5e7eb;
-}
-
+  color: #e5e7eb;}
 .copy-btn {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -304,6 +302,50 @@
   gap: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
+}
+
+@media (max-width: 768px) {
+  .sr-container {
+    padding: 20px;
+  }
+
+  .sr-tabs-container {
+    margin-bottom: 20px;
+  }
+
+  .amount-input {
+    font-size: 24px;
+  }
+
+  .qr-placeholder {
+    width: 150px;
+    height: 150px;
+  }
+
+  .address-value {
+    font-size: 12px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sr-tab-btn {
+    font-size: 12px;
+    gap: 6px;
+  }
+
+  .swap-section {
+    padding: 16px;
+  }
+
+  .amount-input {
+    font-size: 20px;
+  }
+
+  .qr-placeholder {
+    width: 130px;
+    height: 130px;
+  }
 }
 
 .copy-btn:hover {

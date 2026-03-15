@@ -140,3 +140,44 @@
 .btn:hover { 
   border: 1px solid #2d79f3; 
 }
+
+/* Media Queries for Auth Forms Responsiveness */
+@media (max-width: 768px) {
+  .auth-container {
+    padding: 15px;
+    margin-top: 80px;
+    min-height: calc(100vh - 80px);
+  }
+
+  .form {
+    padding: 24px;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .form-title {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .form {
+    padding: 20px;
+  }
+
+  .form-title {
+    font-size: 22px;
+  }
+
+  .inputForm {
+    height: 45px;
+  }
+
+  .button-submit {
+    height: 45px;
+  }
+
+  .btn {
+    height: 45px;
+  }
+}

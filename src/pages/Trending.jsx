@@ -46,11 +46,7 @@ const Trending = () => {
                     <span className="coin-name">{item.item.name}</span>
                   </div>
                 </div>
-                <button className="more-btn" onClick={(e) => e.preventDefault()}>
-                  <div className="dots-icon">
-                    <span></span><span></span><span></span>
-                  </div>
-                </button>
+                
               </div>
 
               <div className="card-price-section">

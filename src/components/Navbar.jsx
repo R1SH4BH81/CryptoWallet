@@ -47,7 +47,7 @@ const Navbar = () => {
             </div>
           </Link>
           {isAuthenticated && (
-            <div className="nav-links">
+            <div className="nav-links desktop-only">
               <Link to="/dashboard" className={`nav-link ${location.pathname === '/dashboard' ? 'active' : ''}`}>Dashboard</Link>
               <Link to="/market" className={`nav-link ${location.pathname === '/market' ? 'active' : ''}`}>Market</Link>
               <Link to="/trending" className={`nav-link ${location.pathname === '/trending' ? 'active' : ''}`}>Trending</Link>
@@ -64,8 +64,18 @@ const Navbar = () => {
         </div> */}
         
         <div className={`nav-right ${isMobileMenuActive ? 'active' : ''}`} ref={mobileMenuRef}>
+          {isAuthenticated && (
+            <div className="nav-links mobile-only">
+              <Link to="/dashboard" className={`nav-link ${location.pathname === '/dashboard' ? 'active' : ''}`}>Dashboard</Link>
+              <Link to="/market" className={`nav-link ${location.pathname === '/market' ? 'active' : ''}`}>Market</Link>
+              <Link to="/trending" className={`nav-link ${location.pathname === '/trending' ? 'active' : ''}`}>Trending</Link>
+              <Link to="/search" className={`nav-link ${location.pathname === '/search' ? 'active' : ''}`}>Search</Link>
+              <Link to="/profile" className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`}>Profile</Link>
+              <button onClick={handleLogout} className="nav-link logout-btn-mobile">Logout</button>
+            </div>
+          )}
           {isAuthenticated ? (
-            <div className="nav-user-area">
+            <div className="nav-user-area desktop-only">
              
               <div 
                 className={`nav-profile-dropdown ${isDropdownActive ? 'active' : ''}`}

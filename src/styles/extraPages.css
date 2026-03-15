@@ -367,7 +367,7 @@
 }
 
 .price-main {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 700;
   letter-spacing: -0.5px;
 }
@@ -499,3 +499,93 @@
 
 .coin-change-val.pos { color: #10b981; }
 .coin-change-val.neg { color: #ef4444; }
+
+/* Media Queries for Extra Pages Responsiveness */
+@media (max-width: 1200px) {
+  .dashboard-container {
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .extra-page-container {
+    padding-top: 80px;
+  }
+
+  .glass-card {
+    padding: 24px;
+  }
+
+  .balance-card .balance-amount {
+    font-size: 28px;
+  }
+
+  .dominance-item {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+
+  .trending-item-custom {
+    grid-template-columns: 1fr 1fr;
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .coin-graph-center {
+    display: none; /* Hide graph on small screens */
+  }
+
+  .search-main-card {
+    padding: 24px;
+  }
+
+  .search-input-field {
+    padding: 14px 20px;
+    font-size: 1rem;
+  }
+
+  .search-result-row {
+    padding: 12px 16px;
+  }
+
+  .coin-name-bold {
+    font-size: 0.95rem;
+  }
+
+  .coin-rank {
+    font-size: 0.8rem;
+    padding: 3px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-container.centered {
+    padding: 0 15px;
+  }
+
+  .search-header-centered h1 {
+    font-size: 1.8rem;
+  }
+
+  .search-header-centered p {
+    font-size: 0.95rem;
+  }
+
+  .trending-item-custom {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .coin-price-right {
+    align-items: center;
+    margin-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 8px;
+    width: 100%;
+  }
+
+  .coin-meta {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
