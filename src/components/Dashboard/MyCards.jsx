@@ -48,7 +48,7 @@ const MyCards = ({ balance, onRewards, onReferral, onHistory }) => {
         </div>
       </div>
 
-      <button className="apply-card-btn">Apply for New Card</button>
+      {/* <button className="apply-card-btn">Apply for New Card</button>
 
       <div className="quick-actions">
         <div className="action-item" onClick={onRewards} style={{ cursor: 'pointer' }}>
@@ -69,7 +69,7 @@ const MyCards = ({ balance, onRewards, onReferral, onHistory }) => {
           </div>
           <span>History</span>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }
