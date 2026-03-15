@@ -28,7 +28,7 @@ import models, schemas, auth, database, wallet_utils
 
 models.Base.metadata.create_all(bind=database.engine)
 
-app = FastAPI()
+app = FastAPI(root_path="/api" if os.getenv("VERCEL") else "")
 
 # CORS Middleware for React frontend
 app.add_middleware(
