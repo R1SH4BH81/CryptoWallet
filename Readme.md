@@ -110,49 +110,56 @@ git push origin dev
   
 
 ## Project File structure
-needs to be updated 
 
 ```markdown
 project_root/
-├── modules/
+├── api/
+│   ├── auth.py
+│   ├── database.py
+│   ├── index.py
+│   ├── main.py
+│   ├── models.py
+│   ├── requirements.txt
+│   ├── schemas.py
+│   └── wallet_utils.py
+├── btc/
+│   ├── address_finder.py
 │   ├── address_generator.py
 │   ├── alpha.py
 │   ├── coin_track.py
-│   ├── generateWallet.py
 │   ├── importing.py
 │   ├── key_finder.py
 │   ├── master_key.py
-│   └── seed.py
-├── static/
-│   ├── app.js
-│   ├── home.js
-│   ├── landing.js
-│   ├── signup.js
-│   ├── dashboard.css
-│   ├── 404.css
-│   ├── landing.css
-│   ├── LoginForm.css
-│   └── SignUpForm.css
-├── templates/
-│   ├── 404.html
-│   ├── DashBoard.html
-│   ├── landing2.html
-│   ├── signin.html
-│   └── signup.html
+│   ├── node.py
+│   ├── seed.py
+│   └── switcher.py
+├── public/
+│   └── static/
+├── src/
+│   ├── components/
+│   ├── hooks/
+│   ├── pages/
+│   ├── services/
+│   ├── store/
+│   └── styles/
 ├── main.py
-├── requirements.txt
-└── config.json
+├── package.json
+└── vercel.json
 ```
 ## Features
 
-- User authentication with Firebase
-- Flask-based web application
-- [Add other features here]
+- User authentication with Firebase & FastAPI
+- Wallet generation & import (BTC, LTC) using `bitcoinlib`
+- Real-time balance & transaction tracking
+- Modern web interface with React & Tailwind CSS
+- Secure private key storage using SQLAlchemy & PostgreSQL
 
 ## Technologies Used
 
-- Flask
-- Firebase Authentication
-- [Other technologies used]
+- **Frontend:** React, Vite, Tailwind CSS, Framer Motion, Zustand
+- **Backend:** FastAPI, Flask
+- **Database:** PostgreSQL (SQLAlchemy), Firebase
+- **Blockchain:** `bitcoinlib`
+- **Security:** `bcrypt`, `python-jose`
 
 ---
