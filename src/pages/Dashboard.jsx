@@ -1,33 +1,35 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, lazy, Suspense } from 'react'
 import useAuthStore from '../store/useAuthStore'
+import useToastStore from '../store/useToastStore'
 import Loader from '../components/Loader'
-import useTradingView from '../hooks/useTradingView'
 import useLenis from '../hooks/useLenis'
-import MyCards from '../components/Dashboard/MyCards'
-import BalanceWidget from '../components/Dashboard/BalanceWidget'
-import IncomeChart from '../components/Dashboard/IncomeChart'
-import AssetWidget from '../components/Dashboard/AssetWidget'
-import TransactionTable from '../components/Dashboard/TransactionTable'
-
-import SendReceiveForm from '../components/Dashboard/SendReceiveForm'
-import { Landmark, CreditCard as CardIcon, X } from 'lucide-react'
+import { getCoinMarketData } from '../services/cryptoApi'
 import '../styles/dashboard.css'
 import '../styles/loader.css'
 
+// Lazy load components for code splitting
+const SendReceiveForm = lazy(() => import('../components/Dashboard/SendReceiveForm'))
+const TotalBalanceCard = lazy(() => import('../components/Dashboard/TotalBalanceCard'))
+const AssetList = lazy(() => import('../components/Dashboard/AssetList'))
+const DeFiSection = lazy(() => import('../components/Dashboard/DeFiSection'))
+const RewardsCard = lazy(() => import('../components/Dashboard/RewardsCard'))
+
 const Dashboard = () => {
   const { user, wallets, fetchUser } = useAuthStore()
+  const { addToast } = useToastStore()
   const [isLoading, setIsLoading] = useState(true)
   const [showSendReceive, setShowSendReceive] = useState(false)
-  const [isSendMode, setIsSendMode] = useState(true)
   const [selectedCoin, setSelectedCoin] = useState('BTC')
   const [amount, setAmount] = useState('')
+  const [marketData, setMarketData] = useState([])
 
-  useTradingView()
-  useLenis(!isLoading && !showSendReceive)
+  useLenis(!isLoading)
 
   useEffect(() => {
     const loadData = async () => {
       await fetchUser()
+      const coins = await getCoinMarketData(['bitcoin', 'litecoin', 'ethereum', 'tether'])
+      if (coins) setMarketData(coins)
       setIsLoading(false)
     }
     loadData()
@@ -37,129 +39,116 @@ const Dashboard = () => {
   const btcBalance = currentWallet.balance_btc || 0
   const ltcBalance = currentWallet.balance_ltc || 0
   
-  // Real stats calculation
-  const btcPrice = 65000 // Mock price, could be fetched from an API
-  const ltcPrice = 85 // Mock price
+  // Real prices from market data
+  const btcPrice = marketData.find(c => c.id === 'bitcoin')?.current_price || 65000
+  const ltcPrice = marketData.find(c => c.id === 'litecoin')?.current_price || 85
   const totalUsdValue = (btcBalance * btcPrice) + (ltcBalance * ltcPrice)
-  
+
   const transactions = currentWallet.transactions || []
-
-  const handleNewTransfer = () => {
-    setIsSendMode(true)
-    setShowSendReceive(true)
-  }
-
-  const handleRewards = () => {
-    alert('Rewards: You have 150 points available! Redeem them for reduced transaction fees.')
-  }
-
-  const handleReferral = () => {
-    const referralCode = user?.username?.toUpperCase() || 'USER123'
-    alert(`Your Referral Code: ${referralCode}\nShare this with friends to earn 5% of their transaction fees!`)
-  }
-
-  const handleHistory = () => {
-    const tableElement = document.querySelector('.transaction-table-section')
-    if (tableElement) {
-      tableElement.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
 
   const copyToClipboard = useCallback((text) => {
     if (!text) return
     navigator.clipboard.writeText(text)
-    alert('Address copied to clipboard!')
   }, [])
+
+  const handleDefiClick = (name) => {
+    addToast('Opportunity Selected', 'success', `Redirecting to ${name} protocol...`)
+  }
+
+  const handleViewRewards = () => {
+    addToast('Rewards Center', 'success', 'You have 150 points available for redemption!')
+  }
+
+  const defiOpportunities = [
+    { name: 'Aave', desc: 'Borrow', logo: 'A', color: '#B6509E' },
+    { name: 'Midas', desc: 'Earn more', logo: 'M', color: '#2563eb' },
+    { name: 'Kamino', desc: 'Borrow & Loop', logo: 'K', color: '#00ffa3' },
+    { name: 'Jupiter', desc: 'Borrow & Loop', logo: 'J', color: '#19fb9b' },
+    { name: 'Fluid', desc: 'Swap, Borrow & Loop', logo: 'F', color: '#3b82f6' },
+    { name: 'Morpho', desc: 'Borrow', logo: 'M', color: '#ffffff' }
+  ]
+
+  const loadingFallback = <div className="component-loader">Loading...</div>
 
   return (
     <div className="dashboard-page">
       {isLoading && <Loader />}
 
-      <div className="dashboard-container" style={{ display: isLoading ? 'none' : 'block' }}>
+      <div className="dashboard-container" style={{ opacity: isLoading ? 0 : 1, transition: 'opacity 0.5s ease' }}>
         <header className="dashboard-header">
-          <div className="header-left">
-            <h1>Dashboard</h1>
-            <p>Welcome back, {user?.username || 'User'}! Track, manage, and spend your crypto easily.</p>
-          </div>
-          <button className="new-transfer-btn" onClick={handleNewTransfer}>New transfer</button>
+          <h1>Explore DeFi Opportunities</h1>
         </header>
 
         <div className="dashboard-grid">
           {/* Left Column */}
           <div className="left-column">
-            <MyCards 
-              balance={totalUsdValue} 
-              onRewards={handleRewards}
-              onReferral={handleReferral}
-              onHistory={handleHistory}
-            />
-     
-          </div>
-
-          {/* Middle Column */}
-          <div className="middle-column">
-            <div className="middle-top-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
-              <BalanceWidget 
-                btcBalance={btcBalance} 
-                ltcBalance={ltcBalance} 
-                totalUsd={totalUsdValue} 
+            <Suspense fallback={loadingFallback}>
+              <TotalBalanceCard 
+                totalUsdValue={totalUsdValue} 
+                onDepositClick={() => setShowSendReceive(true)} 
+                onViewRewardsClick={handleViewRewards} 
               />
-              <IncomeChart transactions={transactions} />
-            </div>
-            <TransactionTable transactions={transactions} />
+            </Suspense>
+
+            <Suspense fallback={loadingFallback}>
+              <AssetList marketData={marketData} />
+            </Suspense>
+
+            <Suspense fallback={loadingFallback}>
+              <DeFiSection 
+                defiOpportunities={defiOpportunities} 
+                onDefiClick={handleDefiClick} 
+              />
+            </Suspense>
           </div>
 
           {/* Right Column */}
           <div className="right-column">
-            <AssetWidget 
-              title="My assets" 
-              amount={`${btcBalance.toFixed(4)} BTC`} 
-              subtext={`≈ ${(btcBalance * btcPrice).toLocaleString()} USD`} 
-              icon={<Landmark size={20} />} 
-              type="asset"
-            />
-            <div className="asset-divider" style={{ display: 'flex', justifyContent: 'center', margin: '-10px 0', zIndex: 2 }}>
-              <div style={{ background: '#1a1a1a', padding: '5px', borderRadius: '50%' }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 10L12 15L7 10" stroke="#f06543" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M7 14L12 9L17 14" stroke="#f06543" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-            </div>
-            <AssetWidget 
-              title="Secondary asset" 
-              amount={`${ltcBalance.toFixed(4)} LTC`} 
-              subtext={`≈ ${(ltcBalance * ltcPrice).toLocaleString()} USD`} 
-              icon={<CardIcon size={20} />} 
-              type="card"
-            />
+            <Suspense fallback={loadingFallback}>
+              <SendReceiveForm 
+                selectedCoin={selectedCoin}
+                setSelectedCoin={setSelectedCoin}
+                walletAddress={selectedCoin === 'BTC' ? currentWallet.address_btc : currentWallet.address_ltc}
+                amount={amount}
+                setAmount={setAmount}
+                balance={selectedCoin === 'BTC' ? btcBalance : ltcBalance}
+                copyToClipboard={copyToClipboard}
+                transactions={transactions}
+              />
+            </Suspense>
+
+            <Suspense fallback={loadingFallback}>
+              <RewardsCard onViewRewardsClick={handleViewRewards} />
+            </Suspense>
           </div>
         </div>
       </div>
 
-      {/* Send/Receive Modal Overlay */}
+      {/* Keep modal for specialized actions if needed, but main UI is now inline */}
       {showSendReceive && (
         <div className="modal-overlay" onClick={() => setShowSendReceive(false)}>
           <div className="modal-content" onClick={e => e.stopPropagation()}>
             <button className="close-modal" onClick={() => setShowSendReceive(false)}>
-              <X size={24} />
+              Close
             </button>
-            <SendReceiveForm 
-              isSendMode={isSendMode}
-              setIsSendMode={setIsSendMode}
-              selectedCoin={selectedCoin}
-              setSelectedCoin={setSelectedCoin}
-              walletAddress={selectedCoin === 'BTC' ? currentWallet.address_btc : currentWallet.address_ltc}
-              amount={amount}
-              setAmount={setAmount}
-              balance={selectedCoin === 'BTC' ? btcBalance : ltcBalance}
-              copyToClipboard={copyToClipboard}
-            />
+            <Suspense fallback={<Loader />}>
+              <SendReceiveForm 
+                selectedCoin={selectedCoin}
+                setSelectedCoin={setSelectedCoin}
+                walletAddress={selectedCoin === 'BTC' ? currentWallet.address_btc : currentWallet.address_ltc}
+                amount={amount}
+                setAmount={setAmount}
+                balance={selectedCoin === 'BTC' ? btcBalance : ltcBalance}
+                copyToClipboard={copyToClipboard}
+                transactions={transactions}
+              />
+            </Suspense>
           </div>
         </div>
       )}
     </div>
   )
 }
+
 
 export default Dashboard
