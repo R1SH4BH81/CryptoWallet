@@ -40,10 +40,10 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 40px;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   position: relative;
   z-index: 1;
   transition: opacity 1s ease;
@@ -56,6 +56,7 @@
   justify-content: center;
   text-align: center;
   width: 100%;
+  height: 100vh;
 }
 
 .hero-title {
@@ -99,7 +100,194 @@
   align-items: center;
   gap: 12px;
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease;
+  transition: transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+}
+
+.btn-secondary {
+  background: #000000;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: #1a1a1a;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Crypto Showcase Section */
+.crypto-showcase {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 100px 0;
+  gap: 60px;
+  width: 100%;
+}
+
+.showcase-info {
+  flex: 1;
+}
+
+.showcase-title {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 24px;
+  letter-spacing: -1px;
+}
+
+.showcase-description {
+  font-size: 16px;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin-bottom: 32px;
+  max-width: 450px;
+}
+
+.showcase-card {
+  flex: 1;
+  background: #0d0d0d;
+  border-radius: 32px;
+  padding: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+  max-width: 600px;
+}
+
+.card-tabs {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.tab {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.tab.active {
+  color: white;
+  position: relative;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent-purple);
+  display: none; /* Hide indicator as per image style */
+}
+
+/* Tradable tab style from image */
+.tab.active {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 6px 16px;
+  border-radius: 20px;
+  color: white;
+}
+
+.coin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.coin-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.coin-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.coin-icon-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.coin-icon-wrapper.btc { background: #f7931a; color: white; }
+.coin-icon-wrapper.eth { background: #627eea; color: white; }
+.coin-icon-wrapper.usdt { background: #26a17b; color: white; }
+.coin-icon-wrapper.bnb { background: #f3ba2f; color: white; }
+.coin-icon-wrapper.xrp { background: #23292f; color: white; }
+.coin-icon-wrapper.usdc { background: #2775ca; color: white; }
+
+.coin-name {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.coin-price-cell {
+  text-align: right;
+}
+
+.coin-price {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.coin-change {
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.coin-change.up { color: #00c853; }
+.coin-change.down { color: #ff3d00; }
+
+@media (max-width: 1024px) {
+  .crypto-showcase {
+    flex-direction: column;
+    text-align: center;
+    padding: 60px 0;
+  }
+
+  .showcase-info {
+    padding-right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .showcase-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .showcase-card {
+    width: 100%;
+  }
 }
 
 .btn-primary:hover {
@@ -157,7 +345,7 @@
   .hero-section {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 60px;
+    gap: 7px;
   }
   
   .hero-left {
@@ -200,6 +388,14 @@
     font-size: 15px;
   }
 
+  .showcase-title {
+    font-size: 36px;
+  }
+
+  .showcase-description {
+    font-size: 15px;
+  }
+
   .announcement-badge {
     margin-bottom: 24px;
   }
@@ -209,6 +405,23 @@
   .hero-title {
     font-size: 38px;
     letter-spacing: -1px;
+  }
+
+  .showcase-title {
+    font-size: 28px;
+  }
+
+  .showcase-card {
+    padding: 24px;
+    border-radius: 24px;
+  }
+
+  .coin-name {
+    font-size: 16px;
+  }
+
+  .coin-price {
+    font-size: 16px;
   }
 
   .badge-text {
