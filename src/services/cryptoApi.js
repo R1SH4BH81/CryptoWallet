@@ -105,19 +105,3 @@ export const getSearchSuggestions = async (query) => {
     return null;
   }
 };
-
-export const getCoinOHLC = async (id, days = 1) => {
-  try {
-    const normalizedId = id.toLowerCase();
-    const response = await axios.get(`${COINGECKO_BASE_URL}/coins/${normalizedId}/ohlc`, {
-      params: {
-        vs_currency: 'usd',
-        days: days,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error(`Error fetching OHLC data for ${id}:`, error);
-    return null;
-  }
-};

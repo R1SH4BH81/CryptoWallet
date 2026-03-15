@@ -11,13 +11,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Set a local directory for bitcoinlib config/logs where we have write access
+# On Vercel, the only writable directory is /tmp
 import pathlib
-current_dir = pathlib.Path(__file__).parent.absolute()
-bitcoinlib_dir = current_dir / ".bitcoinlib_config"
+bitcoinlib_dir = pathlib.Path("/tmp/.bitcoinlib_config")
 bitcoinlib_dir.mkdir(parents=True, exist_ok=True)
 os.environ['BCL_DATABASE_DIR'] = str(bitcoinlib_dir)
-os.environ['HOME'] = str(current_dir)
-os.environ['USERPROFILE'] = str(current_dir)
+os.environ['HOME'] = "/tmp"
+os.environ['USERPROFILE'] = "/tmp"
 
 # Set bitcoinlib to use the same PostgreSQL database as the main application
 DATABASE_URL = os.getenv("DATABASE_URL")
