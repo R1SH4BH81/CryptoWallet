@@ -5,7 +5,7 @@
   padding: 24px;
   width: 100%;
   color: white;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
@@ -280,7 +280,7 @@
 }
 
 .address-value {
-  font-family: 'JetBrains Mono', 'Monaco', 'Consolas', monospace;
+  font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   background: rgba(255, 255, 255, 0.03);
   padding: 16px;

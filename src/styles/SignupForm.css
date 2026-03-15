@@ -3,7 +3,7 @@
   margin: 0%;
   box-sizing: border-box;
 
-  font-family: "Varela Round", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 .signup-page {
   background: url(/static/animatedBg.gif);

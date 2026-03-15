@@ -111,7 +111,12 @@ const Navbar = () => {
             <div className="nav-auth-links">
               <Link to="/login" className="nav-link-login">Login</Link>
               <Link to="/signup">
-                <button className="nav-btn-signup">Sign up</button>
+                <button className="nav-btn-signup">
+                  Sign up
+                  <span className="nav-btn-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="14px" fill="#e3e3e3"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg>
+                  </span>
+                </button>
               </Link>
             </div>
           )}
