@@ -5,7 +5,13 @@ from sqlalchemy.orm import Session
 from datetime import timedelta
 from typing import List
 import os
+import sys
 from dotenv import load_dotenv
+
+# Add current directory to sys.path for Vercel
+current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.append(current_dir)
 
 # Load environment variables first
 load_dotenv()
